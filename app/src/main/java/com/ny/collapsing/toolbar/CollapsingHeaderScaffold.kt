@@ -49,7 +49,7 @@ fun CollapsingHeaderScaffold(
             toolbarMaxHeight = toolbarMaxHeight
         )
     }
-    val rememberState = toolbarState.rememberCollapsingToolbarState(
+    val rememberState = rememberCollapsingToolbarState(
         toolbarMinHeight = toolbarMinHeight,
         toolbarMaxHeight = toolbarMaxHeight
     )
