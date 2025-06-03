@@ -16,7 +16,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
@@ -41,27 +40,20 @@ fun CollapsingHeaderScaffold(
     leftActions: @Composable ((color: Color) -> Unit) = {},
     rightActions: @Composable ((color: Color) -> Unit) = {},
     listContent: LazyListScope.() -> Unit,
-
     ) {
-    val toolbarState = remember {
-        CustomCollapsingToolbarState(
-            toolbarMinHeight = toolbarMinHeight,
-            toolbarMaxHeight = toolbarMaxHeight
-        )
-    }
     val rememberState = rememberCollapsingToolbarState(
         toolbarMinHeight = toolbarMinHeight,
         toolbarMaxHeight = toolbarMaxHeight
     )
-    val progress = toolbarState.progress(rememberState)
+    val progress = rememberState.progress()
     val overlayAlpha = (progress).coerceIn(0f, 1f)
     val nestedScrollConnection = collapsingToolbarConnection(
         listState = rememberState.listState,
         toolbarOffsetPx = rememberState.toolbarOffsetPx,
-        toolbarHeightPx = toolbarState.toolbarHeightPx,
-        minHeightPx = toolbarState.minHeightPx
+        toolbarHeightPx = rememberState.toolbarHeightPx,
+        minHeightPx = rememberState.minHeightPx
     )
-    val currentToolbarHeightDp = toolbarState.currentToolbarHeightDp(rememberState)
+    val currentToolbarHeightDp = rememberState.currentToolbarHeightDp()
 
     Box(
         modifier = modifier

@@ -21,33 +21,6 @@ class CustomCollapsingToolbarState(
 }
 
 @Composable
-fun CustomCollapsingToolbarState.currentToolbarHeightDp(toolbarState: CustomCollapsingToolbarState): Dp {
-    val density = LocalDensity.current
-    return remember(toolbarOffsetPx.floatValue) {
-        derivedStateOf {
-            with(density) {
-                (toolbarMaxHeight.toPx() + toolbarState.toolbarOffsetPx.floatValue).toDp()
-            }
-        }
-    }.value
-}
-
-@Composable
-fun CustomCollapsingToolbarState.progress(toolbarState: CustomCollapsingToolbarState): Float {
-    val density = LocalDensity.current
-    toolbarHeightPx = with(density) { toolbarMaxHeight.toPx() }
-    minHeightPx = with(density) { toolbarState.toolbarMinHeight.toPx() }
-    return remember {
-        derivedStateOf {
-            val offset = toolbarState.toolbarOffsetPx.floatValue
-            val range = toolbarHeightPx - minHeightPx
-            ((-offset) / range).coerceIn(0f, 1f)
-        }
-    }.value
-}
-
-
-@Composable
 fun rememberCollapsingToolbarState(
     toolbarMinHeight: Dp = 40.dp,
     toolbarMaxHeight: Dp = 300.dp
@@ -60,4 +33,30 @@ fun rememberCollapsingToolbarState(
         toolbarOffsetPx = toolbarOffsetPx,
         listState = listState
     )
+}
+
+@Composable
+fun CustomCollapsingToolbarState.currentToolbarHeightDp(): Dp {
+    val density = LocalDensity.current
+    return remember(toolbarOffsetPx.floatValue) {
+        derivedStateOf {
+            with(density) {
+                (toolbarMaxHeight.toPx() + toolbarOffsetPx.floatValue).toDp()
+            }
+        }
+    }.value
+}
+
+@Composable
+fun CustomCollapsingToolbarState.progress(): Float {
+    val density = LocalDensity.current
+    toolbarHeightPx = with(density) { toolbarMaxHeight.toPx() }
+    minHeightPx = with(density) { toolbarMinHeight.toPx() }
+    return remember {
+        derivedStateOf {
+            val offset = toolbarOffsetPx.floatValue
+            val range = toolbarHeightPx - minHeightPx
+            ((-offset) / range).coerceIn(0f, 1f)
+        }
+    }.value
 }
