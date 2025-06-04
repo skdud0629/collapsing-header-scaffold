@@ -1,1 +1,1 @@
-# CollapsingToolBar
+# CollapsingHeaderScaffold
