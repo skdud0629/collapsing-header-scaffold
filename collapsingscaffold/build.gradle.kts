@@ -1,7 +1,10 @@
+import com.vanniktech.maven.publish.SonatypeHost
+
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.vanniktech.maven)
 }
 
 android {
@@ -9,13 +12,10 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.ny.collapsing.toolbar"
         minSdk = 26
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -32,20 +32,12 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
-    }
-    buildFeatures {
-        compose = true
-    }
-    kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
+
 }
 
-
 dependencies {
-
-    implementation(project(":collapsingscaffold"))
     implementation(libs.core.ktx)
 
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -62,4 +54,38 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+}
+
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+
+    signAllPublications()
+
+    coordinates("io.github.cocoslime", "watermark-cover", "0.0.1")
+
+    pom {
+        name = "WatermarkCover"
+        description = "Cover view/compose with Watermark Text"
+        url = "https://github.com/cocoslime/watermark-cover"
+        inceptionYear = "2024"
+
+        licenses {
+            license {
+                name = "The Apache License, Version 2.0"
+                url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+            }
+        }
+        developers {
+            developer {
+                id = "cocoslime"
+                name = "cocoslime"
+                url = "https://github.com/cocoslime"
+            }
+        }
+        scm {
+            connection.set("scm:git:git://github.com/skdud0629/CollapsingHeaderScaffold.git")
+            developerConnection.set("scm:git:ssh://git@github.com/skdud0629/CollapsingHeaderScaffold.git")
+            url.set("https://github.com/skdud0629/CollapsingHeaderScaffold")
+        }
+    }
 }

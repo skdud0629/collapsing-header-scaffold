@@ -1,4 +1,4 @@
-package com.ny.collapsing.toolbar
+package com.ny.collapsing.scaffold
 
 import androidx.compose.animation.core.animate
 import androidx.compose.animation.core.tween

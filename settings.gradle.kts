@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "CollapsingToolbar"
 include(":app")
- 
+include(":collapsingscaffold")

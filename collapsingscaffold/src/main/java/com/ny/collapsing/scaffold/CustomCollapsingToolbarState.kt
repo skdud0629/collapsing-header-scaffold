@@ -1,4 +1,4 @@
-package com.ny.collapsing.toolbar
+package com.ny.collapsing.scaffold
 
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable

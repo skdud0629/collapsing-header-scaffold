@@ -1,4 +1,4 @@
-package com.ny.collapsing.toolbar
+package com.ny.collapsing.scaffold
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
