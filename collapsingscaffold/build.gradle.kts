@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.vanniktech.maven)
+    id("signing")
 }
 
 android {
@@ -13,7 +14,6 @@ android {
 
     defaultConfig {
         minSdk = 26
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -34,12 +34,10 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
-
 }
 
 dependencies {
     implementation(libs.core.ktx)
-
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
@@ -58,16 +56,15 @@ dependencies {
 
 mavenPublishing {
     publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
-
     signAllPublications()
 
-    coordinates("io.github.cocoslime", "watermark-cover", "0.0.1")
+    coordinates("io.github.skdud0629", "collapsing-header-scaffold", "0.0.2")
 
     pom {
-        name = "WatermarkCover"
-        description = "Cover view/compose with Watermark Text"
-        url = "https://github.com/cocoslime/watermark-cover"
-        inceptionYear = "2024"
+        name = "CollapsingHeaderScaffold"
+        description = "A Jetpack Compose library for creating a collapsible header with a sticky list, similar to the classic CollapsingToolbarLayout."
+        url = "https://github.com/skdud0629/collapsing-header-scaffold"
+        inceptionYear = "2025"
 
         licenses {
             license {
@@ -75,17 +72,24 @@ mavenPublishing {
                 url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
             }
         }
+
         developers {
             developer {
-                id = "cocoslime"
-                name = "cocoslime"
-                url = "https://github.com/cocoslime"
+                id = "skdud0629"
+                name = "skdud0629"
+                url = "https://github.com/skdud0629"
             }
         }
+
         scm {
-            connection.set("scm:git:git://github.com/skdud0629/CollapsingHeaderScaffold.git")
-            developerConnection.set("scm:git:ssh://git@github.com/skdud0629/CollapsingHeaderScaffold.git")
-            url.set("https://github.com/skdud0629/CollapsingHeaderScaffold")
+            connection.set("scm:git:git://github.com/skdud0629/collapsing-header-scaffold.git")
+            developerConnection.set("scm:git:ssh://git@github.com/skdud0629/collapsing-header-scaffold.git")
+            url.set("https://github.com/skdud0629/collapsing-header-scaffold")
         }
     }
+}
+
+signing {
+    useGpgCmd()
+    sign(publishing.publications)
 }
